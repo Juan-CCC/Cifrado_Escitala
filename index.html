@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cifrado de Escítala Automático</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 1110;
+            padding: 120;
+            background-color: #ffffff;
+            align-content: center;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        label, button {
+            display: block;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        #mensaje, #resultado {
+            width: 30%;
+            margin: 10px auto;
+            padding: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            width: 10%;
+            background-color: #31c712;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <h1>Cifrado Escítala</h1>
+    <label for="mensaje">Ingrese el Mensaje: </label>
+    <input type="text" id="mensaje" placeholder="Introduce el mensaje">
+    <br>
+    <button onclick="cifrar()">Cifrar</button>
+    <button onclick="descifrar()">Descifrar</button>
+    <br>
+    <label for="resultado">Resultado: </label>
+    <textarea id="resultado" rows="4" cols="50" readonly></textarea>
+
+    <script>
+        function cifrar() {
+            const mensaje = document.getElementById("mensaje").value;
+            const mensajeLimpio = mensaje.replace(/\s/g, ''); 
+            const longitudMensaje = mensajeLimpio.length;
+            const lados = Math.ceil(Math.sqrt(longitudMensaje));
+            const vueltas = Math.ceil(longitudMensaje / lados);
+
+            let resultado = '';
+
+            for (let i = 0; i < lados; i++) {
+                for (let j = i; j < mensajeLimpio.length; j += lados) {
+                    resultado += mensajeLimpio[j];
+                }
+            }
+
+            document.getElementById("resultado").value = resultado;
+        }
+
+        function descifrar() {
+            const mensaje = document.getElementById("mensaje").value;
+            const mensajeLimpio = mensaje.replace(/\s/g, ''); 
+            const longitudMensaje = mensajeLimpio.length;
+            const lados = Math.ceil(Math.sqrt(longitudMensaje));
+            const vueltas = Math.ceil(longitudMensaje / lados);
+
+            let resultado = Array(longitudMensaje).fill('');
+
+            let index = 0;
+            for (let i = 0; i < lados; i++) {
+                for (let j = i; j < mensajeLimpio.length; j += lados) {
+                    resultado[j] = mensajeLimpio[index];
+                    index++;
+                }
+            }
+
+            document.getElementById("resultado").value = resultado.join('');
+        }
+    </script>
+    </center>
+</body>
+</html>
